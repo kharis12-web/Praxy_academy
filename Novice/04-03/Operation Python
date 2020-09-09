@@ -1,0 +1,120 @@
+#Arithmetic operators
+# Operator	Meaning	Example
+# +	Pertambahan
+# -	pengurangan
+# *	Perkalian
+# /	Pembagian
+# %	Modulus 
+# //	Floor division 
+# **	Exponent 
+
+x = 15
+y = 4
+
+# Pertambahan 
+print('x + y =',x+y)
+
+# pengurangan
+print('x - y =',x-y)
+
+# Perkalian
+print('x * y =',x*y)
+
+# Pembagian
+print('x / y =',x/y)
+
+# Pembagian
+print('x // y =',x//y)
+
+#pengkuadratan
+print('x * y =',x*y)
+
+#Comparison 
+# Comparison berfungsi untuk membandingkan nilai yang outputnya  true or false
+
+#>	    lebih dari - 4>4 is flase
+# <	    kurang dari - 4<4 is false
+# ==	sama dengan
+# !=	tidak sama
+# >=	lebih dari sama dengan - 4>= 4 true 
+# <=	kurang dari sama dengan- 4<= 4 true 
+
+x = 10
+y = 12
+
+# x > y 
+print('x > y is',x>y)
+
+# x < y 
+print('x < y is',x<y)
+
+# x == y 
+print('x == y is',x==y)
+
+# x != y 
+print('x != y is',x!=y)
+
+# x >= y 
+print('x >= y is',x>=y)
+
+# x <= y 
+print('x <= y is',x<=y)
+
+#Logical operators
+#Logical operators are the and, or, not operators.
+# 
+# Operator	Meaning	Example
+# and	salah jika salah satunya salah	x and y
+# or	benar jika salah satunya benar	x or y
+# not	pernyataan pengecualian	not x
+
+x = 10
+
+#and
+print('and is',x > 6 and x < 9)
+
+#or
+print('or is',x > 6 or x < 9)
+
+#not
+print('not x is',not x)
+
+#Python If ... Else
+
+
+#Python if statement
+
+a = 20 
+b = 20
+if ( a == b ):
+    print("a dan b are equal")
+
+
+
+#Python if-else statement
+# jika false maka akan menuju body of else setelah itu outputnya 
+# if( expression ):
+#   Statement
+# else:   
+#   Statement 
+
+if (5>10):
+  print(5)
+else:
+  print(10)
+  print("End")
+
+#Python if-elif ladder jika membuat suatu statemen jika salah bisa membuat statement yang baru
+  print("Select your ride:")
+print("1. Bike")
+print("2. Car")
+print("3. SUV")
+choice = int( input() )
+if( choice == 1 ):
+  print( "You have selected Bike" )
+elif( choice == 2 ):
+  print( "You have selected Car" )
+elif( choice == 3 ):
+  print( "You have selected SUV" )
+else:
+  print("Wrong choice!")
