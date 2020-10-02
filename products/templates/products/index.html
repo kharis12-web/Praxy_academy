@@ -1,0 +1,81 @@
+{% load static %}
+{% include 'home/base.html' %}
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>==========</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	</head>
+	<link href="{% static 'css/dist/css/styles.css' %}" rel="stylesheet" />
+        <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" crossorigin="anonymous"></script>
+	<body>
+				<div class="container-fluid">
+<!-- 	<a type="button" class="btn btn-primary" href="/category/input_category">CATEGORY</a>
+	<a type="button" class="btn btn-primary" href="/units/input">UNITS</a> -->
+		<div class="row">
+		    <div class="col-xl">
+				<div id="layoutSidenav_content">
+					<main>
+						<h1 class="mt-4">Halaman Produk</h1>
+							<ol class="breadcrumb mb-4">
+								<li class="breadcrumb-item active">halaman Produk</li>
+							</ol>
+				<a type="button" class="btn btn-primary" href="/products/input">Tambah</a>
+				<a type="button" class="btn btn-danger" href="/">Kembali</a>
+				
+				<div class="card mb-4">
+					<div class="card-header">
+						<i class="fas fa-table mr-1"></i>
+						DataTable Example
+					</div>
+					<div class="card-body">
+						<div class="table-responsive">
+							<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+								<thead>
+									<tr>
+										<th>#</th>
+										<th>Kode</th>
+										<th>Nama</th>
+										<TH>STOK</TH>
+										<th>harga</th>
+										<th>actions</th>
+										
+									</tr>
+								</thead>
+						</div>
+				  	<tbody>
+				  		{% for d in data %}
+				    	<tr>
+				      		<th>{{forloop.counter}}</th>
+				      		<td>{{d.kode}}</td>
+							  <td>{{d.name}}</td>
+							  <td>{{d.stok}}</td>
+							  
+	<!-- 			      		<td>#//#</td>
+				      		<td>#//#</td> -->
+				      		<td>Rp. {{d.price}}</td>
+				      		<!-- <td>#//#</td> -->
+				      		<td>
+					    		<a type="button" class="btn btn-primary" href="{{d.id}}/update"><i class="fas fa-exchange-alt"></i></a>
+					    		<a type="button" class="btn btn-danger" href="{{d.id}}/delete"><i class="far fa-trash-alt"></i></a>	
+				      		</td>
+				    	</tr>
+				    	{% endfor %}
+				  	</tbody>
+				</table>
+			</div>	
+		</div>	
+	</div>	
+		<script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="{% static 'css/dist/js/scripts.js' %}"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+        <script src="{% static 'css/dist/assets/demo/chart-area-demo.js' %}"></script>
+        <script src="{% static 'css/dist/assets/demo/chart-bar-demo.js' %}"></script>
+        <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
+        <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
+        <script src="{% static 'css/dist/assets/demo/datatables-demo.js' %}"></script>
+	</body>
+</html>

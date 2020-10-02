@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>==========</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	</head>
+	<body>
+	<h1>Category</h1>
+	<a type="button" class="btn btn-primary" href="/products/input_category">Tambah</a>
+	<table class="table table-hover mt-3">
+			  	<thead class="thead-light">
+			    	<tr>
+			      		<th scope="col">#</th>
+			      		<th scope="col">Name</th>
+			      		<th scope="col">Actions</th>
+			    	</tr>
+			  	</thead>
+			  	<tbody>
+			  		{% for d in data %}
+			    	<tr>
+			      		<th>{{forloop.counter}}</th>
+			      		<td>{{d.name}}</td>
+			      		<td>
+				    		<a type="button" class="btn btn-primary" href="{{d.id}}/update">Update</a>
+				    		<a type="button" class="btn btn-danger" href="{{d.id}}/delete">Delete</a>	
+			      		</td>
+			    	</tr>
+			    	{% endfor %}
+			  	</tbody>
+			</table>
+	</body>
+</html>

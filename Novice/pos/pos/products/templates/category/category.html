@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container-fluid">
+		<div class="row">
+		    <div class="col-xl">
+				<div id="layoutSidenav_content">
+					<main>
+						<h1 class="mt-4">Halaman Kategori</h1>
+							<ol class="breadcrumb mb-4">
+								<li class="breadcrumb-item active">halaman Produk</li>
+							</ol>
+				<a type="button" class="btn btn-primary" href="/products/category/input_category">Tambah</a>
+				<a type="button" class="btn btn-danger" href="/">Kembali</a>
+				
+				<div class="card mb-4">
+					<div class="card-header">
+						<i class="fas fa-table mr-1"></i>
+					</div>
+					<div class="card-body">
+						<div class="table-responsive">
+						
+				<table class="table table-hover mt-3">
+				  	<thead class="thead-light">
+				    	<tr>
+				      		<th scope="col">#</th>
+				      		<th scope="col">Kategori</th>
+				      		<th scope="col">Actions</th>
+				    	</tr>
+				  	</thead>
+				  	<tbody>
+				  		{% for d in data %}
+				    	<tr>
+				      		<th>{{forloop.counter}}</th>
+				      		<td>{{d.name_c}}</td>
+				      		<td>
+					    		<!-- <a type="button" class="btn btn-primary" href="{{d.id}}/update">Update</a> -->
+					    		<a type="button" class="btn btn-danger" href="/products/category/{{d.id}}/delete">Delete</a>	
+				      		</td>
+				    	</tr>
+				    	{% endfor %}
+				  	</tbody>
+				</table>
+			</div>	
+		</div>	
+	</div>	
+	{% endblock %}
