@@ -18,30 +18,38 @@ def index(req):
 		})
 
 def category(req):
+	tasks = models.Cate.objects.filter(owner=req.user)
 	cate = models.Cate.objects.all()
-	return render(req, 'category/category.html', {
-		'data' : cate,
-		})
-
-def input(req):
-	tasks = models.Prod.objects.filter(owner=req.user)
-	form = forms.Prod()
+	form = forms.Cate()
 	if req.POST:
-		form = forms.Prod(req.POST)
+		form = forms.Cate(req.POST)
 		if form.is_valid():
-			form.instance.owner =req.user
+			form.instance.owner = req.user
 			form.save()
-		return redirect('/products')
-
-	prod = models.Prod.objects.all()
-	return render(req, 'products/input.html', {
-		'data' : prod,
+	return render(req, ('category/category.html'), {
+		'data1' : tasks,
 		'form' : form,
-		'data': tasks,
 		})
+
+# def input(req):
+# 	tasks = models.Prod.objects.filter(owner=req.user)
+# 	form = forms.Prod()
+# 	if req.POST:
+# 		form = forms.Prod(req.POST)
+# 		if form.is_valid():
+# 			form.instance.owner =req.user
+# 			form.save()
+# 		return redirect('/products')
+
+	# prod = models.Prod.objects.all()
+	# return render(req, 'products/input.html', {
+	# 	'data' : prod,
+	# 	'form' : form,
+	# 	'data': tasks,
+	# 	})
 
 def input_c(req):
-	tasks = models.Prod.objects.filter(owner=req.user)
+	tasks = models.Cate.objects.filter(owner=req.user)
 	form = forms.Cate()
 
 	if req.POST:
@@ -50,7 +58,7 @@ def input_c(req):
 			form.instance.owner =req.user
 			form.save()
 		return redirect('/products/category')
-
+		
 	cate = models.Cate.objects.all()
 	return render(req, 'category/input_category.html', {
 		'data' : cate,
@@ -68,13 +76,6 @@ def update(req, id):
 			form.update()
 			form.save()
 		return redirect('/products')
-	# if req.POST:
-	# 	models.Prod.objects.filter(pk=id).update(
-	# 		kode = req.POST['kode'],
-	# 		name = req.POST['name'],
-	# 		price = req.POST['price'],
-	# 		stok = req.POST['stok'])
-	# 	return redirect('/products')
 
 	prod = models.Prod.objects.filter(pk=id).first()
 	return render(req, 'products/update.html', {

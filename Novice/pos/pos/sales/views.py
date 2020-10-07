@@ -1,7 +1,5 @@
 from django.shortcuts import render,redirect
-
-from customers import models as customers_models
-# from product import models as product_models
+from products import models as products_models
 from . import models, forms
 # Create your views here.
 def index(req):
@@ -11,8 +9,10 @@ def index(req):
 		form = forms.SalesForm(req.POST)
 		if form.is_valid():
 			form.instance.owner = req.user
-			form.save()
-		return redirect('/sales')
+			sale = form.save()
+			stok_baru = sale.products.stok-sale.qty
+			products_models.Prod.objects.filter(pk=sale.products.id).update(stok=stok_baru)
+	# return redirect('/sales')
 	sale = models.Sale.objects.all()
 	return render(req, ('sales/index.html'), {
 		'data' : sale,
@@ -42,6 +42,7 @@ def input(req):
 		if form.is_valid():
 			form.instance.owner = req.user
 			form.save()
+		
 		return redirect('/sales')
 
 	sale = models.Sale.objects.all()

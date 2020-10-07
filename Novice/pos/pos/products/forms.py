@@ -18,4 +18,8 @@ class Prod(ModelForm):
 class Cate(ModelForm):
 	class Meta:
 		model=models.Cate
-		exclude=['owner']	
+		exclude=['owner']
+
+	def __init__(self, *args, **kwargs):
+		super(Cate, self).__init__(*args, **kwargs)
+		self.fields['name_c'].widget.attrs['class'] = 'form-control'	
