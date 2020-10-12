@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block content %}
+	<head>
+		<title>==========</title>
+		
+	</head>
+
+		<div id="layoutSidenav_content">
+			<div class="container-fluid">
+				<h1 class="mt-4">
+					<center>Detail Belanja</h1></center>
+					<ol class="breadcrumb mb-4">
+					</ol>
+					<main>
+						<div class="row">
+							<div class="col-xl">
+										<div class="table-responsive">
+											<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+												<thead>
+													<tr>
+														<th>#</th>
+														<th>Kategori</th>
+														<th>Produk</th>
+														<th>Harga</th>
+														<th>Qty</th>
+														<th>Total</th>
+														<th>Catatan</th>
+														<th>Actions</th>	
+													</tr>
+												</thead>
+										</div>
+									  <tbody>
+										  {% for d in datadetail %}
+										<tr>
+											<th>{{forloop.counter}}</th>
+											<td>{{d.products.cate.name_c}}</td>
+											<td>{{d.products}}</td>
+											<td>{{d.products.price}}</td>
+											<td>{{d.qty}}</td>
+											<td>Rp. {{d.total}}</td>  
+											<td>{{d.desc}}</td>
+											  <td>
+												<!-- <a type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" href="{{d.id}}/detail"><i class="fas fa-info-circle"></i></a> -->
+												<a type="button" class="btn btn-danger" href="detail/{{d.id}}/delete"><i class="far fa-trash-alt"></i></a>
+													
+											  </td>
+										</tr>
+										{% endfor %}
+									  </tbody>
+								</table>
+										<!-- <a type="button" class="btn btn-danger" href="/sales/print">Beli</a> -->
+											<td>
+												<!-- <a type="button" class="btn btn-primary" href="/sales/input">Tambah</a> -->
+												<a type="button" class="btn btn-danger" href="/sales">Kembali</a>
+											</td>
+										</div>
+							</div>
+						</div>
+					</main>
+			</div>
+			</div>
+			
+
+{% endblock %}

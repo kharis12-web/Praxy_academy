@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% block content %}
+		<div id="layoutSidenav_content">
+			<div class="container-fluid">
+				<h1 class="mt-4">
+				<center>Tambah Belanja</h1></center>
+					<ol class="breadcrumb mb-4">
+									
+	
+		<div class="container ">
+			<div class="row">
+			    <div class="col-xl">
+					{% load crispy_forms_tags %}
+					<form method="POST" action="" class="mt-3">
+					<h2>{{sale.date}}</h2>
+					{% csrf_token %}
+						{{form|crispy}}
+						<button type="submit" class="btn btn-primary mt-2">Tambah</button>
+						<a type="button" class="btn btn-danger mt-2 ml-2" href="/">Kembali</a>
+					</form>
+				<div>
+			<div>
+		</div>
+		<main>
+			<div class="row">
+				<div class="col-xl">
+					<div class="card mb-4">
+						<div class="card-body">
+							<div class="table-responsive">
+								<table class="table table-bordered" id="dataTable" width="100%" cellspacing="">
+									<thead>
+										<tr>
+											<th>#</th>
+											<th>Kategori</th>
+											<th>Produk</th>
+											<th>Harga</th>
+											<th>Qty</th>
+											<th>Total</th>
+											<th>Catatan</th>
+											<th>Actions</th>
+											
+										</tr>
+									</thead>
+							  	<tbody>
+							  		{% for d in data %}
+							    	<tr>
+							      		<th>{{forloop.counter}}</th>
+										<td>{{d.products.cate.name_c}}</td>
+										<td>{{d.products}}</td>
+										<td>{{d.products.price}}</td>
+										<td>{{d.qty}}</td>
+										<td>Rp. {{d.total}}</td>  
+										<td>{{d.desc}}</td>
+							      		<td>
+								    		<a type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" href="{{d.id}}/detail"><i class="fas fa-info-circle"></i></a>
+											<a type="button" class="btn btn-danger" href="{{d.id}}/delete"><i class="far fa-trash-alt"></i></a>
+												
+										  </td>
+									</tr>
+							    	{% endfor %}
+								  </tbody>
+								  <tr>
+								  	<th>Total Semua</th>
+								  	<th></th>
+								  	<th></th>
+								  	<th></th>
+								  	<th></th>
+								  	<th>Rp. {{total}}</th>
+								  	<th></th>
+								  	<th></th>
+								  </tr>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		<!-- <a type="button" class="btn btn-danger" href="/sales/print">Beli</a> -->
+			<td>
+			</td>
+		</main>
+		<!-- <a type="button" class="btn btn-danger mt-2 ml-2" href="/sales">Report Sale</a>
+		<a type="button" class="btn btn-danger mt-2 ml-2" href="/sales/print">Print</a> -->
+	
+{% endblock %}
+
