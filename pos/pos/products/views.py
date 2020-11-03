@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from . import models, forms
+from toko import models as toko_models
 from django.http import JsonResponse, HttpResponse
 import json
 from django.forms.models import model_to_dict
@@ -46,27 +47,37 @@ def category(req):
 	return JsonResponse({'data': kategori})
 
 def input(req):
-	# tasks = models.Prod.objects.filter(owner=req.user)
+	token_data = check_token(req.META['HTTP_AUTHORIZATION'])
+	if not(token_data['id']):
+		return JsonResponse({ 'error': 'akses tidak diizinkan' }, status=401)
+
+	toko = toko_models.Toko.objects.filter(pemilik=token_data['id']).first()
 	form = forms.Prod()
 	if req.method == 'POST':
 		data_byte = req.body
 		data_string = str(data_byte, 'utf-8')
 		data = json.loads(data_string)
 		cate = models.Cate.objects.filter(pk=data['cate']).first()
-		print(cate)
+		print(data)
 		form = forms.Prod(data)
 		if form.is_valid():
 			form.instance.cate = cate
+			form.instance.toko = toko
 			prod = form.save()
 			return JsonResponse({
 				'data' : model_to_dict(prod),
+				# 'data1': tasks,
 				})
 		else:
 			return JsonResponse({ 'error': form.errors }, status=401)
 	return JsonResponse({ 'error': 'akses tidak diizinkan' }, status=401)
 	
 def input_c(req):
-	# tasks = models.Cate.objects.filter(owner=req.user)
+	token_data = check_token(req.META['HTTP_AUTHORIZATION'])
+	if not(token_data['id']):
+		return JsonResponse({ 'error': 'akses tidak diizinkan' }, status=401)
+
+	toko = toko_models.Toko.objects.filter(pemilik=token_data['id']).first()
 	form = forms.Cate()
 	if req.method == 'POST':
 		data_byte = req.body
@@ -75,13 +86,15 @@ def input_c(req):
 		form = forms.Cate(data)
 		print(data)
 		if form.is_valid():
+			form.instance.toko = toko
 			form.save()
 	return JsonResponse({
 		'data' : model_to_dict(form.instance),
+		# 'data1': tasks,
 		})
 
 def input_c_py(req):
-	# tasks = models.Cate.objects.filter(owner=req.user)
+	tasks = models.Cate.objects.filter(owner=req.user)
 	form = forms.Cate()
 
 	if req.POST:
@@ -99,7 +112,7 @@ def input_c_py(req):
 		})
 
 def category_py(req):
-	# tasks = models.Cate.objects.filter(owner=req.user)
+	tasks = models.Cate.objects.filter(owner=req.user)
 	cate = models.Cate.objects.all()
 	form = forms.Cate()
 	if req.POST:

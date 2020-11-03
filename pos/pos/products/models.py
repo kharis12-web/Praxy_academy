@@ -2,18 +2,19 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.http import JsonResponse, HttpResponse
 from django.db.models.fields.files import ImageFieldFile
+from toko import models as toko_models
 # import PIL.Image
 
 class Cate(models.Model):
 	# (( OWNER AKAN AKTIF APABILA SUDAH TERDAPAT FITUR LOGIN ))
-	# owner = models.ForeignKey(User, on_delete= models.CASCADE, related_name='kategori') 
+	toko = models.ForeignKey(toko_models.Toko, on_delete= models.CASCADE, related_name='kategori') 
 	name_c = models.CharField(default='', max_length=30)
 
 	def __str__(self):
 		return self.name_c	
 
 class Prod(models.Model):
-	# owner = models.ForeignKey(User, on_delete= models.CASCADE, related_name='products')  
+	toko = models.ForeignKey(toko_models.Toko, on_delete= models.CASCADE, related_name='products')  
 	cate = models.ForeignKey(Cate, on_delete=models.CASCADE, related_name='termasuk')
 	kode = models.CharField(max_length=10)
 	name = models.CharField(max_length=30)

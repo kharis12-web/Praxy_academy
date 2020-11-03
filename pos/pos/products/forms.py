@@ -5,7 +5,7 @@ from . import models
 class Prod(ModelForm):
 	class Meta:
 		model=models.Prod
-		exclude=['cate']
+		exclude=['cate', 'toko', 'stok']
 
 # class ImageForm(ModelForm):
 # 	class Meta:
@@ -27,7 +27,7 @@ class Prod(ModelForm):
 class Cate(ModelForm):
 	class Meta:
 		model=models.Cate
-		exclude=['owner']
+		exclude=['toko']
 
 	def __init__(self, *args, **kwargs):
 		super(Cate, self).__init__(*args, **kwargs)
