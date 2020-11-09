@@ -21,6 +21,8 @@ class Prod(models.Model):
 	price = models.PositiveIntegerField(default=0)
 	stok = models.PositiveSmallIntegerField(default=0)
 	image = models.TextField(default='')
+	deskp = models.TextField(default='')
+
 
 
 

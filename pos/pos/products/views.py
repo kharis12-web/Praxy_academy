@@ -6,27 +6,14 @@ import json
 from django.forms.models import model_to_dict
 from pos.auth import check_token
 
-# def index_py(req):
-# 	# tasks = models.Prod.objects.filter(owner=req.user)
-# 	prod = models.Prod.objects.all()
-# 	form = forms.Prod()
-# 	if req.POST:
-# 		form = forms.Prod(req.POST)
-# 		if form.is_valid():
-# 			form.instance.owner = req.user
-# 			form.save()
-# 	return render(req, ('products/index.html'), {
-# 		'data' : prod,
-# 		# 'data': tasks, 
-# 		'form': form,
-# 		})
-
 def index(req):
 	token_data = check_token(req.META['HTTP_AUTHORIZATION'])
 	if not(token_data['id']):
 		return JsonResponse({ 'error': 'akses tidak diizinkan' }, status=401)
 
-	prod = models.Prod.objects.all()
+	
+	toko = toko_models.Toko.objects.filter(pemilik=token_data['id']).first()
+	prod = models.Prod.objects.filter(toko =toko)
 	print(prod)
 
 	products = [] # merubah array versi django mjd array biasa
@@ -39,7 +26,9 @@ def category(req):
 	token_data = check_token(req.META['HTTP_AUTHORIZATION'])
 	if not(token_data['id']):
 		return JsonResponse({ 'error': 'akses tidak diizinkan' }, status=401)
-	cate = models.Cate.objects.all()
+	
+	toko = toko_models.Toko.objects.filter(pemilik=token_data['id']).first()
+	cate = models.Cate.objects.filter(toko=toko)
 
 	kategori = [] # merubah array versi django mjd array biasa
 	for p in cate:
@@ -50,6 +39,7 @@ def input(req):
 	token_data = check_token(req.META['HTTP_AUTHORIZATION'])
 	if not(token_data['id']):
 		return JsonResponse({ 'error': 'akses tidak diizinkan' }, status=401)
+		
 
 	toko = toko_models.Toko.objects.filter(pemilik=token_data['id']).first()
 	form = forms.Prod()
@@ -58,6 +48,7 @@ def input(req):
 		data_string = str(data_byte, 'utf-8')
 		data = json.loads(data_string)
 		cate = models.Cate.objects.filter(pk=data['cate']).first()
+
 		print(data)
 		form = forms.Prod(data)
 		if form.is_valid():
@@ -93,55 +84,27 @@ def input_c(req):
 		# 'data1': tasks,
 		})
 
-def input_c_py(req):
-	tasks = models.Cate.objects.filter(owner=req.user)
-	form = forms.Cate()
-
-	if req.POST:
-		form = forms.Cate(req.POST)
-		if form.is_valid():
-			form.instance.owner =req.user
-			form.save()
-		return redirect('/products/category')
-		
-	cate = models.Cate.objects.all()
-	return render(req, 'category/input_category.html', {
-		'data' : cate,
-		'form' : form,
-		'data' : tasks,
-		})
-
-def category_py(req):
-	tasks = models.Cate.objects.filter(owner=req.user)
-	cate = models.Cate.objects.all()
-	form = forms.Cate()
-	if req.POST:
-		form = forms.Cate(req.POST)
-		if form.is_valid():
-			form.instance.owner = req.user
-			form.save()
-	return render(req, ('category/category.html'), {
-		'data1' : tasks,
-		'form' : form,
-		})
-
 def update(req, id):
-	# tasks = models.Prod.objects.filter(owner=req.user)
-	form = forms.Prod()
+	if req.method == 'PUT':
+		data_byte = req.body
+		data_string = str(data_byte, 'utf-8')
+		data = json.loads(data_string)
+		put=models.Prod.objects.filter(pk=id).first()
+		models.Prod.objects.filter(pk=id).update(
+			cate = models.Cate.objects.filter(pk=data['cate']).first() if 'cate' in data else put.cate,
+			kode = data['kode'] if 'kode' in data else put.kode,
+			name = data['name'] if 'name' in data else put.name,
+			price = data['price'] if 'price' in data else put.price,
+			stok = data['stok'] if 'stok' in data else put.stok,
+			image = data['image'] if 'image' in data else put.image,
+			deskp = data['deskp'] if 'deskp' in data else put.deskp,
+		)
+		put=models.Prod.objects.filter(pk=id).first()
+		return JsonResponse({
+			'data' : model_to_dict(put),
+			})	
+	return JsonResponse({ 'error': 'akses tidak diizinkan' }, status=401)
 
-	if req.POST:
-		form = forms.Prod(req.POST)
-		if form.is_valid():
-			form.update()
-			form.save()
-		return redirect('/products')
-
-	prod = models.Prod.objects.filter(pk=id).first()
-	return render(req, 'products/update.html', {
-		'data' : prod,
-		'form' : form,
-		'data' : tasks,
-		})
 
 def delete(req, id):
 	delete = models.Prod.objects.filter(pk=id).delete()

@@ -35,6 +35,8 @@ CORS_ORIGIN_ALLOW_ALL = True
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
+    'rest_framework',
+    'django_rest_resetpassword',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -49,7 +51,6 @@ INSTALLED_APPS = [
     'corsheaders',
     'account',
     'toko',
-    'rest_framework',
     'rest_framework.authtoken',
 ]
 

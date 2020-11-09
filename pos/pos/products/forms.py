@@ -7,6 +7,11 @@ class Prod(ModelForm):
 		model=models.Prod
 		exclude=['cate', 'toko', 'stok']
 
+class ProdUpdate(ModelForm):
+	class Meta:
+		model=models.Prod
+		exclude=[]
+
 # class ImageForm(ModelForm):
 # 	class Meta:
 # 		model = models.Image

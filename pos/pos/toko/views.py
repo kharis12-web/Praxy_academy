@@ -4,7 +4,6 @@ from django.http import JsonResponse, HttpResponse
 import json
 from django.forms.models import model_to_dict
 from pos.auth import check_token
-# Create your views here.
 
 def index(req):
 	token_data = check_token(req.META['HTTP_AUTHORIZATION'])
@@ -37,3 +36,19 @@ def delete(req, id):
 	return JsonResponse({
 		'toko' : delete,
 		})
+
+def pembeli(req):
+	toko = models.Toko.objects.all()
+	datatoko = []
+
+	for t in toko:
+		datatoko.append(model_to_dict(t))
+	return JsonResponse({'toko' : datatoko,})
+
+
+
+
+
+
+
+	

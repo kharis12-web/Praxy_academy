@@ -33,7 +33,6 @@ def registerPage(req):
 			if form_toko.is_valid():
 				form_toko.instance.pemilik = user
 				toko = form_toko.save()
-			
 				return JsonResponse({ 'user': model_to_dict(user), 'toko': model_to_dict(toko) })
 			return JsonResponse({ 'user': model_to_dict(user), 'toko': 'gagal membuat toko' })
 		else:
